@@ -4,4 +4,4 @@ npm install
 
 开发：npm run dev
 
-生产:npm run build
+生产: npm run build
