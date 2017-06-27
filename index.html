@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>my-fis3-demo</title>
+  <script data-framework src="static/lib/es5-shim.js"></script>
+  <script data-framework src="static/lib/es5-sham.js"></script>
+  <!--[if lt IE 9]>
+        <script src="static/lib/html5-shim.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div id="test">123</div>
+  <script data-framework src="static/lib/jquery-1.12.4.min.js"></script>
+  <script data-framework src="static/lib/handlebars-v3.0.0.js"></script>
+  <script data-loader src="static/lib/require.js"></script>
+  <script type="text/javascript">
+    require(['comp/js/a.es'], function (a) {
+      $('#test').html(a.html)
+    })
+  </script>
+</body>
+
+</html>

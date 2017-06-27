@@ -1,0 +1,22 @@
+{
+  "name": "my-fis3-demo",
+  "version": "1.0.0",
+  "description": "my-fis3-demo",
+  "main": "fis-conf.js",
+  "scripts": {
+    "dev": "fis3 server stop && fis3 server start && fis3 release -wL",
+    "build": "rm -rf dist && fis3 release prod -d ./dist && rm -rf ./dist/comp ./dist/static/lib"
+  },
+  "author": "louis",
+  "license": "ISC",
+  "devDependencies": {
+    "fis-optimizer-html-minifier": "0.0.9",
+    "fis-parser-babel-5.x": "^1.4.0",
+    "fis-parser-handlebars-3.x": "0.0.1",
+    "fis-parser-node-sass": "^1.0.1",
+    "fis3-hook-amd": "^0.2.0",
+    "fis3-hook-commonjs": "^0.1.26",
+    "fis3-postpackager-loader": "^2.1.4"
+  },
+  "dependencies": {}
+}
