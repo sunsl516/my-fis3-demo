@@ -6,7 +6,7 @@ define(['b.es', 'c.es'], function (b, c) {
   let a = 'handlebars'
   var content = template({
     title: 'fis3',
-    content: `this is a ${handlebars} test!!!`
+    content: `this is a ${a} test!!!`
   })
 
   return {
