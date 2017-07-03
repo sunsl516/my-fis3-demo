@@ -1,0 +1,1 @@
+"use strict";define(["director"],function(n){var e={module1:"/comp/module1/controller1_329d915.js","module2/?([^/]*)/?([^/]*)":"/comp/module2/controller2_fae86bb.js"},o=null,r=function(n){return function(){var e=n,r=arguments;require([e],function(n){o&&o!==n&&o.onRouteChange&&o.onRouteChange(),o=n,n.apply(null,r)})}};for(var u in e)e[u]=r(e[u]);return n(e)});

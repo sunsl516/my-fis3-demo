@@ -1,0 +1,1 @@
+"use strict";!function(i){var r="/comp/common/api_3c32bcf.js",e={paths:{director:"libs/director",api:r.substring(0,r.indexOf(".js"))},shim:{director:{exports:"Router"}}};require.config(e),require(["/router_c71684d.js"],function(r){i.appView=$("#container"),r.init(),r.setRoute("module1")})}(window);

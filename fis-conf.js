@@ -1,46 +1,24 @@
-fis.set('project.files', ['*.html']);
-
-fis.hook('amd')
-
-fis.match('comp/**.es', {
-  isMod: true,
-  parser: fis.plugin('babel-5.x'),
-  rExt: 'js'
-})
-
-fis.match('comp/**.scss', {
-  rExt: '.css',
-  parser: fis.plugin('node-sass')
-})
-
-fis.match('*.{es,css,scss}', {
-  useHash: true
-})
-
-fis.match('static/**.js', {
-  useHash: false
-})
-
-fis.match(':image', {
-  useHash: true
-})
+fis.set('project.files', ['*.html', '*.js', '*.scss']);
+fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'dist/**']);
 
 fis.match('::package', {
-  postpackager: fis.plugin('loader', {
-    resourceType: 'amd',
-    useInlineMap: true,
-    obtainScript: true
-  })
+  spriter: fis.plugin('csssprites')
 })
 
-fis.match('*.html', {
-  optimizer: fis.plugin('html-minifier', {
-    removeComments: true,
-    collapseWhitespace: true,
-    removeEmptyAttributes: true,
-    minifyJS: true,
-    minifyCSS: true
-  })
+fis.match('{comp/**, router, main}.js', {
+  parser: fis.plugin('babel-5.x'),
+  useHash: true
+})
+
+fis.match('sass/*.scss', {
+  rExt: '.css',
+  parser: fis.plugin('node-sass'),
+  packTo: 'main.css',
+  useSprite: true
+})
+
+fis.match('reset.scss', {
+  packOrder: -100
 })
 
 fis.match('comp/**.handlebars', {
@@ -50,22 +28,19 @@ fis.match('comp/**.handlebars', {
   release: false
 });
 
-fis.media('prod').match('::package', {
-  postpackager: fis.plugin('loader', {
-    allInOne: {
-      css: '/static/aio-${hash}.css',
-      js: '/static/aio-${hash}.js',
-      includeAsyncs: true
-    }
-  }),
-  spriter: fis.plugin('csssprites')
-}).match('comp/**.scss', {
-  optimizer: fis.plugin('clean-css'),
-  useSprite: true
-}).match('static/**.js', {
+fis.media('prod').match('{comp/**, router, main}.js', {
+  useHash: true,
   optimizer: fis.plugin('uglify-js')
-}).match('comp/**.es', {
-  optimizer: fis.plugin('uglify-js')
-}).match('*.png', {
-  optimizer: fis.plugin('png-compressor')
+}).match('sass/*.scss', {
+  optimizer: fis.plugin('clean-css')
+}).match('::image', {
+  useHash: true
+}).match('*.html', {
+  optimizer: fis.plugin('html-minifier', {
+    removeComments: true,
+    collapseWhitespace: true,
+    removeEmptyAttributes: true,
+    minifyJS: true,
+    minifyCSS: true
+  })
 })
