@@ -11,7 +11,7 @@
     var link = document.createElement('link')
     link.rel = 'stylesheet'
     link.href = 'main.css?v=' + new Date().getTime()
-    document.head.appendChild(link)
+    document.getElementsByTagName('head')[0].appendChild(link)
   </script>
 </head>
 
@@ -25,7 +25,7 @@
     var script = document.createElement('script')
     script.src = 'libs/require.js'
     script.setAttribute('data-main', __uri('main.js'))
-    document.body.appendChild(script)
+    document.getElementsByTagName('body')[0].appendChild(script)
   </script>
 </body>
 
