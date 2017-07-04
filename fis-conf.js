@@ -6,6 +6,7 @@ fis.match('::package', {
   postpackager: fis.plugin('loader', {
     resourceType: 'amd',
     obtainScript: false,
+    obtainStyle: false,
     useInlineMap: true
   })
 })
@@ -23,8 +24,7 @@ fis.hook('amd', {
 })
 
 fis.match('src/widget/js/*.js', {
-  isMod: true,
-  packTo: '/static/common.js'
+  isMod: true
 })
 
 fis.match('src/widget/**.js', {
@@ -37,7 +37,7 @@ fis.match('src/widget/sass/*.scss', {
   useSprite: true
 })
 
-fis.match('src/widget/tpls/**.handlebars', {
+fis.match('src/widget/**.handlebars', {
   rExt: '.js',
   parser: fis.plugin('handlebars-3.x', {
   }),
@@ -60,6 +60,8 @@ fis.media('prod').match('::package', {
     obtainScript: false,
     useInlineMap: true
   })
+}).match('src/widget/js/*.js', {
+  packTo: '/static/common.js'
 }).match('{src/widget/**,/static/common}.js', {
   useHash: true,
   optimizer: fis.plugin('uglify-js')

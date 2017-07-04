@@ -13,7 +13,7 @@
   "devDependencies": {
     "fis-optimizer-html-minifier": "0.0.9",
     "fis-parser-babel-5.x": "^1.4.0",
-    "fis-parser-handlebars-3.x": "·0.0.1",
+    "fis-parser-handlebars-3.x": "0.0.1",
     "fis-parser-node-sass": "^1.0.1",
     "fis3-hook-amd": "^0.2.0",
     "fis3-postpackager-loader": "^2.1.4"
