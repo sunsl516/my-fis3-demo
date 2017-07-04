@@ -1,4 +1,4 @@
-fis.set('project.files', ['*.html']);
+fis.set('project.files', ['*.html', '*.js']);
 fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'dist/**']);
 
 fis.match('::package', {
@@ -16,10 +16,13 @@ fis.match('src/(**)', {
 })
 
 fis.hook('amd', {
+  globalAsyncAsSync: false,
   baseUrl: 'src/widget/js',
   paths: {
     api: 'api',
-    common: 'common'
+    common: 'common',
+    index1: 'page1/index',
+    index2: 'page2/index'
   }
 })
 
@@ -44,16 +47,20 @@ fis.match('src/widget/**.handlebars', {
   release: false
 }, true);
 
+fis.match('src/page/(**.html)', {
+  release: '$1'
+})
+
 fis.media('prod').match('::package', {
   spriter: fis.plugin('csssprites'),
   postpackager: fis.plugin('loader', {
     resourceType: 'amd',
     allInOne: {
       js: function (file) {
-        return '/static/' + file.filename + '_' + file.getHash() + '.js'
+        return '/static/js/' + file.filename + '_' + file.getHash() + '.js'
       },
       css: function (file) {
-        return '/static/' + file.filename + '_' + file.getHash() + '.css'
+        return '/static/css/' + file.filename + '_' + file.getHash() + '.css'
       },
       includeAsyncs: true
     },
@@ -62,16 +69,18 @@ fis.media('prod').match('::package', {
     useInlineMap: true
   })
 }).match('src/widget/js/*.js', {
-  packTo: '/static/common.js'
-}).match('{src/widget/**,/static/common}.js', {
+  packTo: '/static/js/common.js'
+}).match('{src/widget/**,/static/js/common}.js', {
   useHash: true,
   optimizer: fis.plugin('uglify-js')
+}).match('src/widget/**.js', {
+  release: '/static/js/$1'
 }).match('**.scss', {
   optimizer: fis.plugin('clean-css'),
   useHash: true
 }).match('::image', {
   useHash: true
-}).match('*.html', {
+}).match('src/page/(**.html)', {
   optimizer: fis.plugin('html-minifier', {
     removeComments: true,
     collapseWhitespace: true,
