@@ -53,11 +53,12 @@ fis.media('prod').match('::package', {
         return '/static/' + file.filename + '_' + file.getHash() + '.js'
       },
       css: function (file) {
-        return '/static/' + file.filename + '_' + file.getHash() + '.js'
+        return '/static/' + file.filename + '_' + file.getHash() + '.css'
       },
       includeAsyncs: true
     },
     obtainScript: false,
+    obtainStyle: false,
     useInlineMap: true
   })
 }).match('src/widget/js/*.js', {
