@@ -5,7 +5,6 @@ fis.match('::package', {
   spriter: fis.plugin('csssprites'),
   postpackager: fis.plugin('loader', {
     resourceType: 'amd',
-    allInOne: true,
     obtainScript: false,
     useInlineMap: true
   })
@@ -16,24 +15,17 @@ fis.match('src/(**)', {
 })
 
 fis.hook('amd', {
+  baseUrl: 'src/widget/js',
   paths: {
-    api: 'src/widget/js/api',
-    common: 'src/widget/js/common'
+    api: 'api',
+    common: 'common'
   }
 })
 
 fis.match('src/widget/js/*.js', {
   isMod: true,
-  // packTo: '/static/common.js'
+  packTo: '/static/common.js'
 })
-
-// var pages = ['page1', 'page2']
-// for (var i = 0; i < pages.length; i++) {
-//   fis.match('src/widget/js/*.js', {
-//     isMod: true,
-//     packTo: '/static/common.js'
-//   })
-// }
 
 fis.match('src/widget/**.js', {
   parser: fis.plugin('babel-5.x')
@@ -52,37 +44,36 @@ fis.match('src/widget/tpls/**.handlebars', {
   release: false
 }, true);
 
-// fis.media('prod').match('::packager', {
-//   postpackager: fis.plugin('loader', {
-//     resourceType: 'amd',
-//     allInOne: {
-//       js: function (file) {
-//         return file.filename + "_aio.js";
-//       },
-//       css: function (file) {
-//         return file.filename + "_aio.css";
-//       }
-//     },
-//     useTrack: false,
-//     obtainScript: false,
-//     useInlineMap: true
-//   })
-// }).match('src/(**)', {
-//   release: '/$1'
-// }).match('src/widget/**.js', {
-//   // useHash: true,
-//   // optimizer: fis.plugin('uglify-js')
-// }).match('src/widget/**.scss', {
-//   // optimizer: fis.plugin('clean-css'),
-//   // useHash: true
-// }).match('::image', {
-//   useHash: true
-// }).match('*.html', {
-//   // optimizer: fis.plugin('html-minifier', {
-//   //   removeComments: true,
-//   //   collapseWhitespace: true,
-//   //   removeEmptyAttributes: true,
-//   //   minifyJS: true,
-//   //   minifyCSS: true
-//   // })
-// })
+fis.media('prod').match('::package', {
+  spriter: fis.plugin('csssprites'),
+  postpackager: fis.plugin('loader', {
+    resourceType: 'amd',
+    allInOne: {
+      js: function (file) {
+        return '/static/' + file.filename + '_' + file.getHash() + '.js'
+      },
+      css: function (file) {
+        return '/static/' + file.filename + '_' + file.getHash() + '.js'
+      },
+      includeAsyncs: true
+    },
+    obtainScript: false,
+    useInlineMap: true
+  })
+}).match('{src/widget/**,/static/common}.js', {
+  useHash: true,
+  optimizer: fis.plugin('uglify-js')
+}).match('**.scss', {
+  optimizer: fis.plugin('clean-css'),
+  useHash: true
+}).match('::image', {
+  useHash: true
+}).match('*.html', {
+  optimizer: fis.plugin('html-minifier', {
+    removeComments: true,
+    collapseWhitespace: true,
+    removeEmptyAttributes: true,
+    minifyJS: true,
+    minifyCSS: true
+  })
+})
