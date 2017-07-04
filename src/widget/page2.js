@@ -8,7 +8,10 @@ require(['api', 'common', './js/page2/test.js'],
       text: `this is ${pageText}!!!`
     })
     $('.container').html(html)
-    $('[data-toggle="popover"]').popover()
+    $('[data-toggle="popover"]').popover({
+      trigger: 'click'
+    })
+    $('#myModal').modal('hide')
     $('#btn').on('click', function () {
       common.jumpTo('/page/page1.html')
     })
